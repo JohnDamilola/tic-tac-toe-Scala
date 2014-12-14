@@ -15,3 +15,28 @@ project/plugins/project/
 # Scala-IDE specific
 .scala_dependencies
 .worksheet
+
+# intellij-scala-IDE specific
+.idea/scopes/
+.idea/dictionaries/
+.idea/inspectionProfiles/
+.idea/libraries/
+.idea/modules/
+.idea/.name
+.idea/*.xml
+*/.idea
+!.idea/vcs.xml
+/classes
+/dist
+/out
+/SDK/*SDK
+/target
+/*.bat
+*.class
+out
+build
+.DS_Store
+*~
+target/
+
+testdata/debugger
