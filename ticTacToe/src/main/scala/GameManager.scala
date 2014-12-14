@@ -21,7 +21,12 @@ object GameManager extends App{
     }
     else {
       println("Game Over. Player 1 : " + p1Score + " - Player 2 : " + p2Score + ".")
-      println(if(p1Score > p2Score) "Player 1 wins!" else if(p2Score > p1Score) "Player 2 wins!" else "You've tied ! Go for a rematch!")
+
+     println((p1Score, p2Score) match {
+        case (s1,s2) if(s1 > s2) => "Player 1 wins!"
+        case (s1, s2) if(s2 > s2) => "Player 2 wins!"
+         case _ => "You've tied ! Go for a rematch!"
+      })
     }
   }
 
