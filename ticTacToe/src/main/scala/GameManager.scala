@@ -5,12 +5,22 @@ import scala.io.StdIn
  */
 object GameManager extends App{
 
-   println("Please enter number of rounds")
-   val rounds = StdIn.readInt()
+  init
 
-  playGame(new Game, 0, 0, rounds)
+  private def init = {
+    val rounds = askRounds
 
-  def playGame(game : Game, score1 : Int, score2 : Int, remainingRounds : Int): Unit = {
+    playGame(new Game, 0, 0, rounds)
+  }
+
+  private def askRounds : Int = {
+    println("Please enter number of rounds")
+    val rounds = StdIn.readInt()
+    print("\n")
+    rounds
+  }
+
+  private def playGame(game : Game, score1 : Int, score2 : Int, remainingRounds : Int): Unit = {
     val winner = game.start
 
     val p1Score = score1 + (if(winner._1 && winner._2 == 1) 1 else 0)
@@ -20,13 +30,26 @@ object GameManager extends App{
       playGame(new Game, p1Score, p2Score, remainingRounds - 1)
     }
     else {
-      println("Game Over. Player 1 : " + p1Score + " - Player 2 : " + p2Score + ".")
+      println("Game Over. Player 1 : " + p1Score + " vs Player 2 : " + p2Score + ".")
 
-     println((p1Score, p2Score) match {
-        case (s1,s2) if(s1 > s2) => "Player 1 wins!"
-        case (s1, s2) if(s2 > s2) => "Player 2 wins!"
-         case _ => "You've tied ! Go for a rematch!"
+      println((p1Score, p2Score) match {
+        case (s1,s2) if(s1 > s2) => "Player 1 wins!\n"
+        case (s1, s2) if(s2 > s2) => "Player 2 wins!\n"
+        case _ => "You've tied ! Go for a rematch!\n"
       })
+
+      askRematch
+    }
+  }
+
+  private def askRematch : Unit = {
+    println("Rematch ? (y/n)")
+
+    val ans = StdIn.readChar().toLower
+    ans match {
+      case 'y' => print("\n"); init
+      case 'n' => Unit
+      case c => println("Please insert 'y' or 'n'"); askRematch
     }
   }
 

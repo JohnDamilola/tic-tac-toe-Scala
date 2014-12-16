@@ -48,7 +48,7 @@ class Board {
       j <- 0 to 2
     } yield Symbol(if(board(i)(j) == DefaultSymbol) (97 + (i * 3) + j).toChar.toString else board(i)(j).name)
 
-    translated.grouped(3).toArray.map((line : IndexedSeq[Symbol]) => prettyLine(line)).mkString(LineSeparator)
+    "\n" + translated.grouped(3).toList.map((line : IndexedSeq[Symbol]) => prettyLine(line)).mkString(LineSeparator) + "\n"
   }
 
   private def prettyLine(line: IndexedSeq[Symbol]): String = line.map((s: Symbol) => s.name).mkString(ColumnSeparator)
