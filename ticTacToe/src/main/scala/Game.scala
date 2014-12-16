@@ -35,9 +35,13 @@ class Game(private[this] val startingPlayer : Int) {
       val pos = convertMove(StdIn.readLine())
 
       pos match {
-        case Failure(e) => println(e.getMessage + " Please choose a move between 'a' and 'i'"); play(player)
+        case Failure(e) => {
+          println(e.getMessage + " Please choose a move between 'a' and 'i'")
+          play(player)
+        }
         case Success((line, col)) if (!allowedMove((line, col))) => {
-          println("Invalid move: " + convertMove((line, col)) + ". Please choose an empty position.")
+          println("Invalid move: " + convertMove((line, col)) +
+            ". Please choose an empty position.")
           play(player)
         }
         case Success((line, col)) => board.play(player, line, col); play(nextPlayer(player))

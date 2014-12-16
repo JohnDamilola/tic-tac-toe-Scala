@@ -25,6 +25,7 @@ project/plugins/project/
 .idea/.name
 .idea/*.xml
 */.idea
+*/.idea/*
 !.idea/vcs.xml
 /classes
 /dist
@@ -40,3 +41,5 @@ build
 target/
 
 testdata/debugger
+
+*/scalastyle-config.xml

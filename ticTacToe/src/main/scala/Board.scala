@@ -58,6 +58,7 @@ class Board {
       "\n"
   }
 
-  private[this] def prettyLine(line: IndexedSeq[Symbol]): String = line.map((s: Symbol) => s.name).mkString(ColumnSeparator)
+  private[this] def prettyLine(line: IndexedSeq[Symbol]): String =
+    line.map((s: Symbol) => s.name).mkString(ColumnSeparator)
 
 }
