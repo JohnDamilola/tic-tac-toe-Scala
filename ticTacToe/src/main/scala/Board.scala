@@ -20,9 +20,12 @@ class Board {
   def isAvailable(pos : (Int, Int)) : Boolean = board(pos._1)(pos._2) == DefaultSymbol
 
   def hasWinner: (Boolean, Int) = {
-    val possibilities : Array[Array[Symbol]] = (board ++: board.transpose) :+ Array(board(0)(0), board(1)(1), board(2)(2)) :+ Array(board(2)(0), board(1)(1), board(0)(2))
+    val possibilities : Array[Array[Symbol]] = (board ++: board.transpose) :+
+      Array(board(0)(0), board(1)(1), board(2)(2)) :+
+      Array(board(2)(0), board(1)(1), board(0)(2))
 
-    val winningLines : Array[Array[Symbol]] = possibilities.filter((array: Array[Symbol]) => array.forall(elem => elem != DefaultSymbol && elem == array(0)))
+    val winningLines : Array[Array[Symbol]] = possibilities.filter((array: Array[Symbol]) =>
+      array.forall(elem => elem != DefaultSymbol && elem == array(0)))
 
     if (winningLines.length > 0) {
       winningLines.head.head match {
@@ -46,9 +49,13 @@ class Board {
     val translated = for{
       i <- 0 to 2
       j <- 0 to 2
-    } yield Symbol(if(board(i)(j) == DefaultSymbol) (97 + (i * 3) + j).toChar.toString else board(i)(j).name)
+    } yield Symbol(if(board(i)(j) == DefaultSymbol)
+        (97 + (i * 3) + j).toChar.toString
+      else board(i)(j).name)
 
-    "\n" + translated.grouped(3).toList.map((line : IndexedSeq[Symbol]) => prettyLine(line)).mkString(LineSeparator) + "\n"
+    "\n" + translated.grouped(3).toList.map((line : IndexedSeq[Symbol]) =>
+      prettyLine(line)).mkString(LineSeparator) +
+      "\n"
   }
 
   private[this] def prettyLine(line: IndexedSeq[Symbol]): String = line.map((s: Symbol) => s.name).mkString(ColumnSeparator)
