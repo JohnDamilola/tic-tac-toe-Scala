@@ -8,9 +8,9 @@ import scala.util.{Success, Try, Failure}
  */
 class Game(private[this] val startingPlayer : Int) {
 
-  private val board: Board = new Board
+  private[this] val board: Board = new Board
 
-  def start = {
+  def start : (Boolean, Int) = {
     println("Starting a new game")
 
     play(startingPlayer)
@@ -36,17 +36,20 @@ class Game(private[this] val startingPlayer : Int) {
 
       pos match {
         case Failure(e) => println(e.getMessage + " Please choose a move between 'a' and 'i'"); play(player)
-        case Success((line, col)) if (!allowedMove((line, col))) => println("Invalid move: " + convertMove((line, col)) + ". Please choose an empty position."); play(player)
+        case Success((line, col)) if (!allowedMove((line, col))) => {
+          println("Invalid move: " + convertMove((line, col)) + ". Please choose an empty position.")
+          play(player)
+        }
         case Success((line, col)) => board.play(player, line, col); play(nextPlayer(player))
       }
     }
   }
 
-  private def gameOver: Boolean = !board.hasAvailableMoves || board.hasWinner._1
+  private[this] def gameOver: Boolean = !board.hasAvailableMoves || board.hasWinner._1
 
-  private def allowedMove(move: (Int, Int)): Boolean = board.isAvailable(move)
+  private[this] def allowedMove(move: (Int, Int)): Boolean = board.isAvailable(move)
 
-  private def nextPlayer(player: Int) = if (player == 1) 2 else 1
+  private[this] def nextPlayer(player: Int) = if (player == 1) 2 else 1
 
   private[this] def convertMove(pos: String): Try[(Int, Int)] = {
     Try(

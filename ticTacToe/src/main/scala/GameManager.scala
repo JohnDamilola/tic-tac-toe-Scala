@@ -7,20 +7,20 @@ object GameManager extends App{
 
   init
 
-  private def init = {
+  private[this] def init = {
     val rounds = askRounds
 
     playGame(0, 0, rounds)
   }
 
-  private def askRounds : Int = {
+  private[this] def askRounds : Int = {
     println("Please enter number of rounds:")
     val rounds = StdIn.readInt()
     print("\n")
     rounds
   }
 
-  private def playGame(score1 : Int, score2 : Int, remainingRounds : Int): Unit = {
+  private[this] def playGame(score1 : Int, score2 : Int, remainingRounds : Int): Unit = {
     val startingPlayer = askStartingPlayer
 
     val game = new Game(startingPlayer)
@@ -46,7 +46,7 @@ object GameManager extends App{
     }
   }
 
-  private def askRematch : Unit = {
+  private[this] def askRematch : Unit = {
     println("Rematch ? (y/n)")
 
     val ans = StdIn.readChar().toLower
@@ -57,7 +57,7 @@ object GameManager extends App{
     }
   }
 
-  private def askStartingPlayer : Int = {
+  private[this] def askStartingPlayer : Int = {
     println("Which Player should start ? (1/2)")
 
     val ans = StdIn.readInt()
