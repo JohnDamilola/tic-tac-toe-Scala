@@ -5,7 +5,7 @@ package exception
  */
 class IllegalSymbolException(val symbol : Symbol) extends RuntimeException {
 
-  override def getMessage = {
+  override def getMessage : String = {
     "Invalid symbol: " + symbol + "."
   }
 }

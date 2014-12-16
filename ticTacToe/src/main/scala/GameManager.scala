@@ -53,7 +53,7 @@ object GameManager extends App{
     ans match {
       case 'y' => print("\n"); init
       case 'n' => Unit
-      case c => println("Please insert 'y' or 'n'"); askRematch
+      case _ => println("Please insert 'y' or 'n'"); askRematch
     }
   }
 

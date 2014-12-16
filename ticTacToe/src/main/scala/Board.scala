@@ -13,9 +13,9 @@ class Board {
   final val LineSeparator: String = "\n- + - + -\n"
   final val ColumnSeparator: String = " | "
 
-  private val board: Array[Array[Symbol]] = Array.fill[Symbol](3, 3) {DefaultSymbol}
+  private[this] val board: Array[Array[Symbol]] = Array.fill[Symbol](3, 3) {DefaultSymbol}
 
-  def hasAvailableMoves = board.flatten.contains(DefaultSymbol)
+  def hasAvailableMoves : Boolean = board.flatten.contains(DefaultSymbol)
 
   def isAvailable(pos : (Int, Int)) : Boolean = board(pos._1)(pos._2) == DefaultSymbol
 
@@ -28,7 +28,7 @@ class Board {
       winningLines.head.head match {
         case Player1Symbol => (true, 1)
         case Player2Symbol => (true, 2)
-        case s => throw new IllegalSymbolException(s)
+        case s : Symbol => throw new IllegalSymbolException(s)
       }
     }
     else
@@ -51,6 +51,6 @@ class Board {
     "\n" + translated.grouped(3).toList.map((line : IndexedSeq[Symbol]) => prettyLine(line)).mkString(LineSeparator) + "\n"
   }
 
-  private def prettyLine(line: IndexedSeq[Symbol]): String = line.map((s: Symbol) => s.name).mkString(ColumnSeparator)
+  private[this] def prettyLine(line: IndexedSeq[Symbol]): String = line.map((s: Symbol) => s.name).mkString(ColumnSeparator)
 
 }

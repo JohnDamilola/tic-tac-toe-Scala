@@ -6,7 +6,7 @@ import scala.util.{Success, Try, Failure}
 /**
  * Created by pedrorijo on 11/12/14.
  */
-class Game(private val startingPlayer : Int) {
+class Game(private[this] val startingPlayer : Int) {
 
   private val board: Board = new Board
 
@@ -16,7 +16,7 @@ class Game(private val startingPlayer : Int) {
     play(startingPlayer)
   }
 
-  private def play(player: Int): (Boolean, Int) = {
+  private[this] def play(player: Int): (Boolean, Int) = {
 
     println(board.prettyBoard)
 
@@ -48,7 +48,7 @@ class Game(private val startingPlayer : Int) {
 
   private def nextPlayer(player: Int) = if (player == 1) 2 else 1
 
-  private def convertMove(pos: String): Try[(Int, Int)] = {
+  private[this] def convertMove(pos: String): Try[(Int, Int)] = {
     Try(
       pos match {
         case "a" => (0, 0)
@@ -64,7 +64,7 @@ class Game(private val startingPlayer : Int) {
       })
   }
 
-  private def convertMove(pos: (Int, Int)): String = {
+  private[this] def convertMove(pos: (Int, Int)): String = {
     pos match {
       case (0, 0) => "a"
       case (0, 1) => "b"

@@ -5,7 +5,7 @@ package exception
  */
 class IllegalMoveException(val pos : String) extends RuntimeException {
 
-  override def getMessage = {
+  override def getMessage : String = {
     "Invalid move: " + pos + "."
   }
 }
