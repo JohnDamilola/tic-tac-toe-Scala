@@ -10,24 +10,28 @@ object GameManager extends App{
   private def init = {
     val rounds = askRounds
 
-    playGame(new Game, 0, 0, rounds)
+    playGame(0, 0, rounds)
   }
 
   private def askRounds : Int = {
-    println("Please enter number of rounds")
+    println("Please enter number of rounds:")
     val rounds = StdIn.readInt()
     print("\n")
     rounds
   }
 
-  private def playGame(game : Game, score1 : Int, score2 : Int, remainingRounds : Int): Unit = {
+  private def playGame(score1 : Int, score2 : Int, remainingRounds : Int): Unit = {
+    val startingPlayer = askStartingPlayer
+
+    val game = new Game(startingPlayer)
+
     val winner = game.start
 
     val p1Score = score1 + (if(winner._1 && winner._2 == 1) 1 else 0)
     val p2Score = score2 + (if(winner._1 && winner._2 == 2) 1 else 0)
 
     if(remainingRounds - 1 > 0) {
-      playGame(new Game, p1Score, p2Score, remainingRounds - 1)
+      playGame(p1Score, p2Score, remainingRounds - 1)
     }
     else {
       println("Game Over. Player 1 : " + p1Score + " vs Player 2 : " + p2Score + ".")
@@ -50,6 +54,16 @@ object GameManager extends App{
       case 'y' => print("\n"); init
       case 'n' => Unit
       case c => println("Please insert 'y' or 'n'"); askRematch
+    }
+  }
+
+  private def askStartingPlayer : Int = {
+    println("Which Player should start ? (1/2)")
+
+    val ans = StdIn.readInt()
+    ans match {
+      case 1 | 2 => ans
+      case _ => println("Please insert '1' or '2'"); askStartingPlayer
     }
   }
 

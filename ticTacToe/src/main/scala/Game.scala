@@ -6,10 +6,9 @@ import scala.util.{Success, Try, Failure}
 /**
  * Created by pedrorijo on 11/12/14.
  */
-class Game {
+class Game(private val startingPlayer : Int) {
 
   private val board: Board = new Board
-  final private val startingPlayer = 1
 
   def start = {
     println("Starting a new game")
@@ -22,10 +21,12 @@ class Game {
     println(board.prettyBoard)
 
     if (gameOver) {
+      println("====================")
       println("Game ended.")
 
       val winner = board.hasWinner
-      println((if (winner._1) "Player " + winner._2 + " won!" else "Tie!") + "\n")
+      println(if (winner._1) "Player " + winner._2 + " won!" else "Tie!")
+      println("====================\n")
 
       winner
     }
