@@ -1,16 +1,23 @@
+package com.pt.pedrorijo91.ticTacToe
+
 import exception.IllegalMoveException
+import org.slf4j.LoggerFactory
 
 import scala.io.StdIn
-import scala.util.{Success, Try, Failure}
+import scala.util.{Failure, Success, Try}
 
 /**
  * Created by pedrorijo on 11/12/14.
  */
 class Game(private[this] val startingPlayer : Int) {
 
+  private[this] val logger = createLogger(this.getClass)
+
   private[this] val board: Board = new Board
 
   def start : (Boolean, Int) = {
+    logger.debug("Started new game")
+
     println("Starting a new game")
 
     play(startingPlayer)
@@ -18,15 +25,19 @@ class Game(private[this] val startingPlayer : Int) {
 
   private[this] def play(player: Int): (Boolean, Int) = {
 
+    logger.debug("Player " + player + " turn.")
+
     println(board.prettyBoard)
 
     if (gameOver) {
       println("====================")
-      println("Game ended.")
+      println("com.pt.pedrorijo91.ticTacToe.Game ended.")
 
       val winner = board.hasWinner
       println(if (winner._1) "Player " + winner._2 + " won!" else "Tie!")
       println("====================\n")
+
+      logger.debug("com.pt.pedrorijo91.ticTacToe.Game over. Winner: " + winner)
 
       winner
     }
@@ -34,12 +45,18 @@ class Game(private[this] val startingPlayer : Int) {
       println("Player " + player + " turn. Make your moves.")
       val pos = convertMove(StdIn.readLine())
 
+      logger.debug("Player move: " + pos)
+
       pos match {
         case Failure(e) => {
+          logger.error("Invalid move: " + pos)
+
           println(e.getMessage + " Please choose a move between 'a' and 'i'")
           play(player)
         }
         case Success((line, col)) if (!allowedMove((line, col))) => {
+          logger.error("Invalid move (non empty position): " + pos)
+
           println("Invalid move: " + convertMove((line, col)) +
             ". Please choose an empty position.")
           play(player)

@@ -1,4 +1,7 @@
+package com.pt.pedrorijo91.ticTacToe
+
 import exception.IllegalSymbolException
+import org.slf4j.LoggerFactory
 
 import scala.Array._
 
@@ -6,6 +9,8 @@ import scala.Array._
  * Created by pedrorijo on 10/12/14.
  */
 class Board {
+
+  private[this] val logger = createLogger(this.getClass)
 
   final val DefaultSymbol: Symbol = '*
   final val Player1Symbol: Symbol = 'X
@@ -27,6 +32,8 @@ class Board {
     val winningLines : Array[Array[Symbol]] = possibilities.filter((array: Array[Symbol]) =>
       array.forall(elem => elem != DefaultSymbol && elem == array(0)))
 
+    logger.debug("Number of winning combinations: " + winningLines.length)
+
     if (winningLines.length > 0) {
       winningLines.head.head match {
         case Player1Symbol => (true, 1)
@@ -39,6 +46,8 @@ class Board {
   }
 
   def play(player: Int, line: Int, col: Int): Unit = {
+    logger.debug("play: Player" + player + " @ (" + line + "," + col + ")")
+
     board(line)(col) = player match {
       case 1 => Player1Symbol
       case 2 => Player2Symbol
