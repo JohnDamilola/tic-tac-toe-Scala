@@ -11,31 +11,10 @@ import org.slf4j.LoggerFactory
  */
 package object ticTacToe {
 
-  private[this] final val logFilename = "src/main/resources/Log/ticTacToe.log"
-
   def createLogger(clazz : Class[_]) = {
-    val lc : LoggerContext = (LoggerFactory.getILoggerFactory).asInstanceOf[LoggerContext]
 
-    val ple = new PatternLayoutEncoder
+     LoggerFactory.getLogger(clazz)
 
-    ple.setPattern("%date %level [%thread] %logger{10} [%file:%line] %msg%n")
-    ple.setContext(lc)
-    ple.start()
-
-    val fileAppender : FileAppender[ILoggingEvent] = new FileAppender[ILoggingEvent]
-
-    fileAppender.setFile(logFilename)
-    fileAppender.setContext(lc)
-    fileAppender.setEncoder(ple)
-    fileAppender.start()
-    fileAppender.setAppend(false)
-    fileAppender.setPrudent(false)
-
-    val logger : Logger = LoggerFactory.getLogger(clazz).asInstanceOf[Logger]
-    logger.addAppender(fileAppender)
-    logger.setAdditive(false)
-
-    logger
   }
 
 }

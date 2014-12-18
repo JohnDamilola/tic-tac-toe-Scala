@@ -31,13 +31,13 @@ class Game(private[this] val startingPlayer : Int) {
 
     if (gameOver) {
       println("====================")
-      println("com.pt.pedrorijo91.ticTacToe.Game ended.")
+      println("Game ended.")
 
       val winner = board.hasWinner
       println(if (winner._1) "Player " + winner._2 + " won!" else "Tie!")
       println("====================\n")
 
-      logger.debug("com.pt.pedrorijo91.ticTacToe.Game over. Winner: " + winner)
+      logger.debug("Game over. Winner: " + winner)
 
       winner
     }

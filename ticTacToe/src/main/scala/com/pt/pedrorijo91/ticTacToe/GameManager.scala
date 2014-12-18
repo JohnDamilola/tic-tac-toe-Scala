@@ -1,12 +1,7 @@
 package com.pt.pedrorijo91.ticTacToe
 
-import ch.qos.logback.classic.encoder.PatternLayoutEncoder
-import ch.qos.logback.classic.spi.ILoggingEvent
-import ch.qos.logback.classic.{Logger, LoggerContext}
-import ch.qos.logback.core.FileAppender
-import org.slf4j.LoggerFactory
-
 import scala.io.StdIn
+import scala.util.{Success, Failure, Try}
 
 /**
  * Created by pedrorijo on 11/12/14.
@@ -26,12 +21,27 @@ object GameManager extends App{
 
   private[this] def askRounds : Int = {
     println("Please enter number of rounds:")
-    val rounds = StdIn.readInt()
+    val rounds = Try {
+      StdIn.readInt()
+    }
+
     print("\n")
 
-    logger.debug("Rounds: " + rounds)
+    logger.debug("Rounds ans: " + rounds)
 
-    rounds
+    rounds match {
+      case Failure(e) => {
+        logger.debug("Error reading rounds: " + e)
+        println("Please insert an integer")
+        askRounds
+      }
+      case Success(n) if(n <= 0) => {
+        logger.debug("Invalid number of rounds: " + n)
+        println("Please insert a positive number")
+        askRounds
+      }
+      case Success(n) => n
+    }
   }
 
   private[this] def playGame(score1 : Int, score2 : Int, remainingRounds : Int): Unit = {
@@ -43,7 +53,7 @@ object GameManager extends App{
 
     val winner = game.start
 
-    logger.debug("com.pt.pedrorijo91.ticTacToe.Game winner:" +  winner)
+    logger.debug("Game winner:" +  winner)
 
     val p1Score = score1 + (if(winner._1 && winner._2 == 1) 1 else 0)
     val p2Score = score2 + (if(winner._1 && winner._2 == 2) 1 else 0)
@@ -54,7 +64,7 @@ object GameManager extends App{
       playGame(p1Score, p2Score, remainingRounds - 1)
     }
     else {
-      println("com.pt.pedrorijo91.ticTacToe.Game Over. Player 1 : " + p1Score + " vs Player 2 : " + p2Score + ".")
+      println("Game Over. Player 1 : " + p1Score + " vs Player 2 : " + p2Score + ".")
 
       println((p1Score, p2Score) match {
         case (s1,s2) if(s1 > s2) => "Player 1 wins!\n"
