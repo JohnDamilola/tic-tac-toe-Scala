@@ -1,4 +1,4 @@
-package com.pt.pedrorijo91.ticTacToe
+package com.pt.pedrorijo91
 
 import ch.qos.logback.classic.{Logger, LoggerContext}
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory
  */
 package object ticTacToe {
 
-  private[this] final val logFilename = "log.log"
+  private[this] final val logFilename = "src/main/resources/Log/ticTacToe.log"
 
   def createLogger(clazz : Class[_]) = {
     val lc : LoggerContext = (LoggerFactory.getILoggerFactory).asInstanceOf[LoggerContext]
