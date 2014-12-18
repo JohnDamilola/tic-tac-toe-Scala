@@ -1,9 +1,6 @@
 package com.pt.pedrorijo91
 
-import ch.qos.logback.classic.{Logger, LoggerContext}
-import ch.qos.logback.classic.encoder.PatternLayoutEncoder
-import ch.qos.logback.classic.spi.ILoggingEvent
-import ch.qos.logback.core.FileAppender
+import ch.qos.logback.classic.Logger
 import org.slf4j.LoggerFactory
 
 /**
@@ -11,10 +8,7 @@ import org.slf4j.LoggerFactory
  */
 package object ticTacToe {
 
-  def createLogger(clazz : Class[_]) = {
+  def createLogger(clazz : Class[_]) : Logger = LoggerFactory.getLogger(clazz).asInstanceOf[Logger]
 
-     LoggerFactory.getLogger(clazz)
-
-  }
 
 }

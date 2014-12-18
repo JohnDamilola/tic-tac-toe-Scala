@@ -1,7 +1,6 @@
 package com.pt.pedrorijo91.ticTacToe
 
 import exception.IllegalMoveException
-import org.slf4j.LoggerFactory
 
 import scala.io.StdIn
 import scala.util.{Failure, Success, Try}

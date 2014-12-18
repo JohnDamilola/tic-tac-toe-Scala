@@ -1,7 +1,6 @@
 package com.pt.pedrorijo91.ticTacToe
 
 import exception.IllegalSymbolException
-import org.slf4j.LoggerFactory
 
 import scala.Array._
 

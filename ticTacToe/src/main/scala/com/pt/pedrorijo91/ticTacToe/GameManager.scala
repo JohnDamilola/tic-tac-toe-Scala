@@ -1,14 +1,13 @@
 package com.pt.pedrorijo91.ticTacToe
 
 import scala.io.StdIn
-import scala.util.{Success, Failure, Try}
+import scala.util.{Failure, Success, Try}
 
 /**
  * Created by pedrorijo on 11/12/14.
  */
 object GameManager extends App{
 
-  //val logger = LoggerFactory.getLogger(this.getClass)
   private[this] val logger = createLogger(this.getClass)
 
   init
